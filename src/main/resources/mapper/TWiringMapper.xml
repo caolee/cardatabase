@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.TWiringMapper" >
+  <resultMap id="BaseResultMap" type="cn.caoler.mybatis.pojo.TWiring" >
+    <id column="start" property="start" jdbcType="VARCHAR" />
+    <result column="destination" property="destination" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="stime" property="stime" jdbcType="INTEGER" />
+    <result column="class" property="class" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    start, destination, time, stime, class
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_wiring
+    where start = #{start,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_wiring
+    where start = #{start,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.caoler.mybatis.pojo.TWiring" >
+    insert into t_wiring (start, destination, time, 
+      stime, class)
+    values (#{start,jdbcType=VARCHAR}, #{destination,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{stime,jdbcType=INTEGER}, #{class,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.caoler.mybatis.pojo.TWiring" >
+    insert into t_wiring
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="start != null" >
+        start,
+      </if>
+      <if test="destination != null" >
+        destination,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="stime != null" >
+        stime,
+      </if>
+      <if test="class != null" >
+        class,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="start != null" >
+        #{start,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null" >
+        #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stime != null" >
+        #{stime,jdbcType=INTEGER},
+      </if>
+      <if test="class != null" >
+        #{class,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.caoler.mybatis.pojo.TWiring" >
+    update t_wiring
+    <set >
+      <if test="destination != null" >
+        destination = #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stime != null" >
+        stime = #{stime,jdbcType=INTEGER},
+      </if>
+      <if test="class != null" >
+        class = #{class,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where start = #{start,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.caoler.mybatis.pojo.TWiring" >
+    update t_wiring
+    set destination = #{destination,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      stime = #{stime,jdbcType=INTEGER},
+      class = #{class,jdbcType=VARCHAR}
+    where start = #{start,jdbcType=VARCHAR}
+  </update>
+</mapper>
